@@ -7,10 +7,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class PlatepostingApplicationTests {
 
-	@Test
-	void createTable(){
-		Member member = Member.builder()
-				.name("park").email("a.naver.com").build();
-	}
-
 }
