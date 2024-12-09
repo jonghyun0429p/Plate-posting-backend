@@ -1,8 +1,8 @@
-package com.project.plateposting.article;
+package com.project.plateposting.api.article.entity;
 
-import com.project.plateposting.category.Category;
-import com.project.plateposting.content.Content;
-import com.project.plateposting.member.Member;
+import com.project.plateposting.api.category.entity.Category;
+import com.project.plateposting.api.content.entity.Content;
+import com.project.plateposting.api.member.entity.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -22,20 +22,13 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @OneToMany(mappedBy = "article")
+    private List<ArticleContent> articleContents = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @NotNull
     private Category category;
-
-
-    //Article과 Content가 다대다 인데, 어짜피 테이블이 하나 생기는 식으로 관리됨.
-    //그렇다면 그냥 직접 1대n, n대1로 쪼개서 관리도 가능함.
-    @NotNull
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "article_content",
-                joinColumns = @JoinColumn(name = "id"),
-                inverseJoinColumns = @JoinColumn(name = "content_id"))
-    private List<Content> contents = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

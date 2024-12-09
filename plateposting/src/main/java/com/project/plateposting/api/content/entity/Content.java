@@ -1,7 +1,8 @@
-package com.project.plateposting.content;
+package com.project.plateposting.api.content.entity;
 
-import com.project.plateposting.article.Article;
-import com.project.plateposting.member.Member;
+import com.project.plateposting.api.article.entity.Article;
+import com.project.plateposting.api.article.entity.ArticleContent;
+import com.project.plateposting.api.member.entity.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -9,7 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,10 +23,8 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    @OneToMany(mappedBy = "content")
+    private List<ArticleContent> articleContents = new ArrayList<>();
 
     @JoinColumn(name = "author_id")
     @NotNull

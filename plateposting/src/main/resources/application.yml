@@ -6,6 +6,9 @@ spring:
     database: postgresql
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialct.postgresql
 
   datasource:
     hikari:
